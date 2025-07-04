@@ -1,0 +1,43 @@
+.firebase-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 500px; // Ancho máximo para desktop
+  margin: 50px auto; // Centrar en desktop
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Sombra sutil
+  border-radius: 8px;
+  background-color: #fff;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #3f51b5; // Color primario de Material Design
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; // Ocupar todo el ancho del contenedor
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 1.1em;
+    }
+  }
+}
+
+/* Estilos para mobile (pantallas de hasta 600px de ancho) */
+@media (max-width: 600px) {
+  .firebase-form-container {
+    margin: 20px;
+    padding: 15px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+}
