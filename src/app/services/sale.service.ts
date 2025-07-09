@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, writeBatch, Timestamp } from '@angular/fire/firestore';
 import { Sale, SaleItem, Product } from '../models/firestore.models';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaleService {
+
+  private saleCompletedSubject = new Subject<void>();
+  saleCompleted$ = this.saleCompletedSubject.asObservable();
 
   constructor(private firestore: Firestore) { }
 
@@ -29,5 +33,6 @@ export class SaleService {
 
     // Commit the batch
     await batch.commit();
+    this.saleCompletedSubject.next(); // Emit event after successful commit
   }
 }

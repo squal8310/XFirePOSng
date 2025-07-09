@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/product.service';
@@ -12,7 +12,8 @@ import { DocumentSnapshot } from '@angular/fire/firestore';
 import { CartService } from '../services/cart.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FloatingCartComponent } from '../floating-cart/floating-cart.component';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { SaleService } from '../services/sale.service';
 
 @Component({
   selector: 'app-product-list',
@@ -30,7 +31,7 @@ import { Observable } from 'rxjs';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   pageSize: number = 50;
   totalProducts: number = 0;
@@ -40,13 +41,21 @@ export class ProductListComponent implements OnInit {
   pageHistory: (DocumentSnapshot | null)[] = [null];
   cartItemCount$: Observable<number>;
   @ViewChild('cartSidenav') cartSidenav!: MatSidenav;
+  private saleSubscription: Subscription;
 
-  constructor(private productService: ProductService, private cartService: CartService) {
+  constructor(private productService: ProductService, private cartService: CartService, private saleService: SaleService) {
     this.cartItemCount$ = this.cartService.getCartItemCount();
+    this.saleSubscription = this.saleService.saleCompleted$.subscribe(() => {
+      this.loadProducts(); // Reload products after a sale
+    });
   }
 
   ngOnInit(): void {
     this.loadProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.saleSubscription.unsubscribe();
   }
 
   async loadProducts(): Promise<void> {
