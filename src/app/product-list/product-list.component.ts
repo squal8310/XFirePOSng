@@ -1,39 +1,49 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/product.service';
 import { Product } from '../models/firestore.models';
-import { MatListModule } from '@angular/material/list'; // Import MatListModule
-import { MatCardModule } from '@angular/material/card'; // Keep MatCardModule if you plan to use it elsewhere or for future
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { DocumentSnapshot } from '@angular/fire/firestore';
 import { CartService } from '../services/cart.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FloatingCartComponent } from '../floating-cart/floating-cart.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   imports: [
     CommonModule,
-    MatListModule, // Add MatListModule
+    MatListModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSidenavModule,
+    FloatingCartComponent
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  pageSize: number = 50; // Max 50 products per page as per requirement
-  totalProducts: number = 0; // This will be an approximation for Firestore
+  pageSize: number = 50;
+  totalProducts: number = 0;
   lastDoc: DocumentSnapshot | null = null;
-  firstDoc: DocumentSnapshot | null = null; // For previous page
+  firstDoc: DocumentSnapshot | null = null;
   pageIndex: number = 0;
-  pageHistory: (DocumentSnapshot | null)[] = [null]; // To keep track of first doc of each page
+  pageHistory: (DocumentSnapshot | null)[] = [null];
+  cartItemCount$: Observable<number>;
+  @ViewChild('cartSidenav') cartSidenav!: MatSidenav;
 
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  constructor(private productService: ProductService, private cartService: CartService) {
+    this.cartItemCount$ = this.cartService.getCartItemCount();
+  }
 
   ngOnInit(): void {
     this.loadProducts();

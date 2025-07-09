@@ -51,6 +51,11 @@
     .product-stock {
       color: #666;
       font-size: 0.9em;
+
+      &.low-stock {
+        color: red;
+        font-weight: bold;
+      }
     }
   }
 

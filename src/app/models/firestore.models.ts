@@ -73,6 +73,22 @@ export interface Order extends FirestoreDocument {
   // orderItems will be a subcollection, not directly in the Order document
 }
 
+export interface SaleItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  priceAtSale: number; // Price at the time of sale
+}
+
+export interface Sale extends FirestoreDocument {
+  saleDate: Timestamp;
+  totalAmount: number;
+  items: SaleItem[];
+  // Optional: clientId, clientName if sales can be associated with clients
+  clientId?: string;
+  clientName?: string;
+}
+
 export interface KardexEntry extends FirestoreDocument {
   productId: string;
   productName: string; // Denormalized

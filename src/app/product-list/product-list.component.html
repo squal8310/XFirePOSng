@@ -1,24 +1,39 @@
-<div class="product-list-container">
-  <mat-list class="product-list">
-    <mat-list-item *ngFor="let product of products" class="product-list-item">
-      <img matListItemAvatar [src]="product.imageUrl || 'https://lavialactea1979.com/wp-content/uploads/2020/09/coca-cola-600ml-2.png'" alt="{{ product.name }}">
-      <div matListItemTitle class="product-info">
-        <span class="product-name">{{ product.name }}</span>
-        <span class="product-price">${{ product.salePrice | number:'1.2-2' }}</span>
-        <span class="product-stock">Stock: {{ product.currentStock }}</span>
-      </div>
-      <button mat-icon-button color="primary" matListItemMeta (click)="addToCart(product)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-list-item>
-  </mat-list>
+<mat-sidenav-container class="product-list-sidenav-container">
+  <mat-sidenav-content class="product-list-sidenav-content">
+    <div class="product-list-container">
+      <mat-list class="product-list">
+        <mat-list-item *ngFor="let product of products" class="product-list-item">
+          <img matListItemAvatar [src]="product.imageUrl || 'https://lavialactea1979.com/wp-content/uploads/2020/09/coca-cola-600ml-2.png'" alt="{{ product.name }}">
+          <div matListItemTitle class="product-info">
+            <span class="product-name">{{ product.name }}</span>
+            <span class="product-price">${{ product.salePrice | number:'1.2-2' }}</span>
+            <span class="product-stock" [class.low-stock]="product.minStock !== undefined && product.currentStock <= product.minStock">Stock: {{ product.currentStock }}</span>
+          </div>
+          <button mat-icon-button color="primary" matListItemMeta (click)="addToCart(product)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
 
-  <mat-paginator
-    [length]="totalProducts"
-    [pageSize]="pageSize"
-    [pageIndex]="pageIndex"
-    [pageSizeOptions]="[pageSize]"
-    (page)="onPageChange($event)"
-    aria-label="Select page of products">
-  </mat-paginator>
-</div>
+      <mat-paginator
+        [length]="totalProducts"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="[pageSize]"
+        (page)="onPageChange($event)"
+        aria-label="Select page of products">
+      </mat-paginator>
+    </div>
+  </mat-sidenav-content>
+
+  <!-- Sidenav para el carrito de compras -->
+  <mat-sidenav #cartSidenav mode="over" position="end" class="cart-sidenav">
+    <app-floating-cart></app-floating-cart>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<!-- Botón flotante para abrir el carrito -->
+<button mat-fab color="accent" class="floating-cart-button" (click)="cartSidenav.toggle()">
+  <mat-icon>shopping_cart</mat-icon>
+  <span class="cart-badge">{{ cartItemCount$ | async }}</span>
+</button>

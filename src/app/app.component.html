@@ -21,19 +21,8 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <!-- Sidenav para el carrito de compras -->
-  <mat-sidenav #cartSidenav mode="over" position="end" class="cart-sidenav">
-    <app-floating-cart></app-floating-cart>
-  </mat-sidenav>
-
   <mat-sidenav-content class="sidenav-content">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-<!-- Botón flotante para abrir el carrito -->
-<button mat-fab color="accent" class="floating-cart-button" (click)="cartSidenav.toggle()">
-  <mat-icon>shopping_cart</mat-icon>
-  <span class="cart-badge">{{ cartItemCount$ | async }}</span>
-</button>
 

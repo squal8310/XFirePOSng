@@ -218,9 +218,20 @@ export class ProductService {
 
     let q;
     if (lastDoc) {
-      q = query(this.productsCollection, orderBy('name'), limit(effectivePageSize), startAfter(lastDoc));
+      q = query(
+        this.productsCollection,
+        where('currentStock', '>', 0), // Add this line
+        orderBy('name'),
+        limit(effectivePageSize),
+        startAfter(lastDoc)
+      );
     } else {
-      q = query(this.productsCollection, orderBy('name'), limit(effectivePageSize));
+      q = query(
+        this.productsCollection,
+        where('currentStock', '>', 0), // Add this line
+        orderBy('name'),
+        limit(effectivePageSize)
+      );
     }
 
     const querySnapshot = await getDocs(q);

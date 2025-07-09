@@ -17,7 +17,7 @@
             <button mat-icon-button (click)="item.product.id && decreaseQuantity(item.product.id)" aria-label="Disminuir cantidad">
               <mat-icon>remove</mat-icon>
             </button>
-            <span>{{ item.quantity }}</span>
+            <span><b>{{ item.quantity }}</b></span>
             <button mat-icon-button (click)="item.product.id && increaseQuantity(item.product)" aria-label="Aumentar cantidad">
               <mat-icon>add</mat-icon>
             </button>
@@ -45,6 +45,6 @@
       <span>Total:</span>
       <span>{{ totalPrice$ | async | number:'1.2-2' }}</span>
     </div>
-    <button mat-raised-button color="primary" class="checkout-button">Pagar</button>
+    <button mat-raised-button color="primary" class="checkout-button" (click)="checkout()" [disabled]="(totalQuantity$ | async) === 0">Pagar</button>
   </div>
 </div>
