@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "358935274872",
+    "project_id": "mc-tienda",
+    "storage_bucket": "mc-tienda.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358935274872:android:71882c5f40e0c0aa5d148d",
+        "android_client_info": {
+          "package_name": "org.mctienda.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358935274872-gairt20jfcejhav371tqa4t014omf70m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.mctienda.app",
+            "certificate_hash": "c9fa08b1380c6a5d375cc3a8b96b2eecf4846aa7"
+          }
+        },
+        {
+          "client_id": "358935274872-k4daqm11tsia06ajd70eaib3u4b0orm2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5O3SvH7ls1duY5yoHTGK3u9B7pSTrXXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358935274872-k4daqm11tsia06ajd70eaib3u4b0orm2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,69 @@
+.product-list-container {
+  padding: 10px;
+  max-width: 100%; // Occupy full horizontal width
+  margin: 0 auto;
+  overflow-y: auto; // Enable vertical scroll if content exceeds height
+  height: calc(100vh - 120px); // Adjust height to fit within viewport, considering toolbar/paginator
+}
+
+.product-list {
+  width: 100%;
+}
+
+.product-list-item {
+  height: auto !important; // Allow item height to adjust to content
+  padding: 10px 0;
+  border-bottom: 1px solid #eee; // Separator between items
+  align-items: center; // Vertically align content
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  img {
+    border-radius: 8px; // Rounded corners for image
+    object-fit: cover;
+    width: 64px; // Small image size
+    height: 64px; // Small image size
+    margin-right: 16px;
+    flex-shrink: 0; // Prevent image from shrinking
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; // Allow info to take available space
+    margin-right: 16px;
+
+    .product-name {
+      font-weight: bold;
+      font-size: 1.1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-price {
+      color: #3f51b5; // Primary color
+      font-size: 1em;
+    }
+
+    .product-stock {
+      color: #666;
+      font-size: 0.9em;
+    }
+  }
+
+  mat-list-item-meta {
+    align-self: center; // Align button vertically
+  }
+}
+
+mat-paginator {
+  position: sticky; // Keep paginator at the bottom
+  bottom: 0;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #eee;
+  z-index: 10;
+}

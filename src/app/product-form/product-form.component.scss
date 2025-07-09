@@ -1,0 +1,56 @@
+.product-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #fff;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #3f51b5;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    mat-checkbox {
+      margin-bottom: 15px;
+    }
+
+    .file-input-container {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+
+      input[type="file"] {
+        margin-right: 10px;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 1.1em;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .product-form-container {
+    margin: 20px;
+    padding: 15px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+}

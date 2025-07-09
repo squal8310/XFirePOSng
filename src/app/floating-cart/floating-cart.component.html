@@ -1,0 +1,50 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h2>Mi Carrito</h2>
+    <button mat-icon-button (click)="clearCart()" [disabled]="(totalQuantity$ | async) === 0" aria-label="Vaciar carrito">
+      <mat-icon>remove_shopping_cart</mat-icon>
+    </button>
+  </div>
+
+  <mat-list *ngIf="(cartItems$ | async) as items; else emptyCart">
+    <div *ngIf="items.length > 0; else emptyCart">
+      <mat-list-item *ngFor="let item of items" class="cart-item">
+        <img matListItemAvatar [src]="item.product.imageUrl || 'https://via.placeholder.com/40'" alt="{{ item.product.name }}">
+        <div matListItemTitle class="item-name">{{ item.product.name }}</div>
+        
+        <div matListItemMeta class="item-actions-and-price">
+          <div class="quantity-controls">
+            <button mat-icon-button (click)="item.product.id && decreaseQuantity(item.product.id)" aria-label="Disminuir cantidad">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <span>{{ item.quantity }}</span>
+            <button mat-icon-button (click)="item.product.id && increaseQuantity(item.product)" aria-label="Aumentar cantidad">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <span class="item-total-price">{{ (item.quantity * item.product.salePrice) | number:'1.2-2' }}</span>
+        </div>
+      </mat-list-item>
+      
+    </div>
+  </mat-list>
+
+  <ng-template #emptyCart>
+    <div class="empty-cart-message">
+      <mat-icon>shopping_cart</mat-icon>
+      <p>Tu carrito está vacío</p>
+    </div>
+  </ng-template>
+
+  <div class="cart-summary" *ngIf="(totalQuantity$ | async) as totalQuantity; and: totalQuantity > 0">
+    <div class="summary-row">
+      <span>Subtotal:</span>
+      <span>{{ totalPrice$ | async | number:'1.2-2' }}</span>
+    </div>
+    <div class="summary-row total">
+      <span>Total:</span>
+      <span>{{ totalPrice$ | async | number:'1.2-2' }}</span>
+    </div>
+    <button mat-raised-button color="primary" class="checkout-button">Pagar</button>
+  </div>
+</div>

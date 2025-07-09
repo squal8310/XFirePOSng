@@ -1,0 +1,24 @@
+<div class="product-list-container">
+  <mat-list class="product-list">
+    <mat-list-item *ngFor="let product of products" class="product-list-item">
+      <img matListItemAvatar [src]="product.imageUrl || 'https://lavialactea1979.com/wp-content/uploads/2020/09/coca-cola-600ml-2.png'" alt="{{ product.name }}">
+      <div matListItemTitle class="product-info">
+        <span class="product-name">{{ product.name }}</span>
+        <span class="product-price">${{ product.salePrice | number:'1.2-2' }}</span>
+        <span class="product-stock">Stock: {{ product.currentStock }}</span>
+      </div>
+      <button mat-icon-button color="primary" matListItemMeta (click)="addToCart(product)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+  <mat-paginator
+    [length]="totalProducts"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[pageSize]"
+    (page)="onPageChange($event)"
+    aria-label="Select page of products">
+  </mat-paginator>
+</div>

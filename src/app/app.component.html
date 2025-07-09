@@ -1,5 +1,39 @@
-<h1>{{ title }}</h1>
-<nav>
-  <a routerLink="/test-firebase">Probar Firebase</a>
-</nav>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidenav para el menú de navegación -->
+  <mat-sidenav #sidenav mode="over" [fixedInViewport]="true" [fixedTopGap]="64">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/product-list" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>payment</mat-icon>
+        <span matListItemTitle>Ventas</span>
+      </a>
+      <a mat-list-item routerLink="/product-form" (click)="sidenav.close()">
+        <mat-icon matListItemIcon>add_shopping_cart</mat-icon>
+        <span matListItemTitle>Registrar Producto</span>
+      </a>
+      <!-- Add more navigation links here -->
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Sidenav para el carrito de compras -->
+  <mat-sidenav #cartSidenav mode="over" position="end" class="cart-sidenav">
+    <app-floating-cart></app-floating-cart>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Botón flotante para abrir el carrito -->
+<button mat-fab color="accent" class="floating-cart-button" (click)="cartSidenav.toggle()">
+  <mat-icon>shopping_cart</mat-icon>
+  <span class="cart-badge">{{ cartItemCount$ | async }}</span>
+</button>
+

@@ -1,0 +1,24 @@
+.floating-cart-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cart-sidenav {
+  width: 320px; // O el ancho que prefieras
+  padding: 16px;
+}
