@@ -18,8 +18,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/browser",
-            "index": "src/index.html",
-            "main": "src/main.ts",
+            "index": "src/browser/index.html",
+            "main": "src/browser/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -32,7 +32,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/browser/styles.scss"
             ],
             "scripts": []
           },
