@@ -32,8 +32,17 @@ export class CartService {
     const existingItemIndex = currentItems.findIndex(item => item.product.id === product.id);
 
     if (existingItemIndex > -1) {
-      currentItems[existingItemIndex].quantity += 1;
+      const existingItem = currentItems[existingItemIndex];
+      if (existingItem.quantity + 1 > product.currentStock) {
+        console.warn(`No hay suficiente stock para añadir más de ${product.name}. Stock disponible: ${product.currentStock}`);
+        return; // Prevent adding if stock is insufficient
+      }
+      existingItem.quantity += 1;
     } else {
+      if (1 > product.currentStock) {
+        console.warn(`No hay suficiente stock para añadir ${product.name}. Stock disponible: ${product.currentStock}`);
+        return; // Prevent adding if stock is insufficient
+      }
       currentItems.push({ product, quantity: 1 });
     }
     this.saveCart(currentItems);

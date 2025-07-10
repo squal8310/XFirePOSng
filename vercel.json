@@ -1,0 +1,9 @@
+     {
+       "rewrites": [
+         {
+           "source": "/(.*)",
+           "destination": "/dist/browser/$1"
+         }
+       ],
+       "trailingSlash": true
+     }
